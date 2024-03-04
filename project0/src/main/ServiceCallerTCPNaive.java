@@ -11,7 +11,7 @@ public class ServiceCallerTCPNaive {
 	/*3*/  private final String hostAddr    = "localhost";
 	/*4*/  private final int    port        = 8011;
 	/*5*/  private final String msgid       = "dofibo";
-	/*6*/  private final String msgcontent  = "dofibo(39)";
+	/*6*/  private final String msgcontent  = "dofibo(7)";
 	/*7*/  private Socket socket   ;
 
 	  public void doJob() {

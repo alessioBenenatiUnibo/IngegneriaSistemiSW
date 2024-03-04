@@ -63,7 +63,7 @@ eclipse {
 }
 
 application {
-        mainClass = 'main.ServiceCallerInteraction'
+        mainClass = 'main.ServiceCallerTCPInteraction'
 }
 
 jar {

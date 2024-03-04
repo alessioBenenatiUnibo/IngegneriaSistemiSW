@@ -245,20 +245,54 @@ div.imagedesc{
 
  
 <div class="remark">
-Copy here the EXACT text fiven by the customer.
+	Costruire un sistema software distribuito costituio da N (N>=1) Produttori che inviano informazione a 1 Consumatore, il quale deve elaborare tale informazione.
+
+	La dislocazione dei componenti sui nodi di elaborazione può essere:
+	
+	OneNode: tutti i componenti operano nello stesso nodo;
+	
+	TwoNodes: gli N Produttori operano in uno stesso nodo, mentre il Consumatore opera in un diverso nodo;
+	
+	ManyNodes: il Consumatore opera in suo proprio nodo, mentre i Produttori operano su K nodi diversi (1 &#60 K &#60=N).
 </div>
 
  
 
 <h2>Requirement analysis</h2>
- 
+ <div>
+	<ul>
+		<li>R1: I produttori inviano informazione al consumatore che la elabora</li>
+		<li>R2: n. produttori >= 1</li>
+		<li>R3: n. consumatori = 1</li>
+		<li>R4: modalità OneNode := produttori e consumatore sullo stesso nodo</li>
+		<li>R5: modalità TwoNodes := 1 nodo per consumatore + 1 nodo per tutti i produttori</li>
+		<li>R6: modalità ManyNodes := 1 nodo per consumatore + K nodi per i produttori (1 &#60 K &#60=N)</li>
+	</ul>
+ </div>
 
 </div>
 
 <h2>Problem analysis</h2>
+<div>
+	Da R1,R2 ed R3 intuiamo che il sistema è composto da due tipologie di entità ovvero Produttore e Consumatore, ci sarà almeno un Produttore ed esattamente un Consumatore.<br>
+	I Produttori devono essere in grado di comunicare con il Consumatore, indipendentemente che questi si trovi sul loro stesso nodo (R4) o su un altro nodo (R5,R6).<br>
+	Da R2 ed R3 si evince che essendoci 1 Consumatore che comunica con N Produttori risulta applicabile il modello Cliente/Servitore, con i Produttori come clienti ed il consumatore come Servitore.
+	I requisiti non prevedono l'invio di risposte da parte del Consumatore si puo' dunque anche pensare di utilizzare la variante del Cliente/Servitore con clienti non bloccanti.<br>
+	
+</div>
  
 
 <h2>Test plans</h2> 
+<div>
+	<ul>
+		<li>Elaborazione: far elaborare al consumatore una serie di valori fake dei quali si conosce l'output corretto per verificare che l'algoritmo di elaborazione sia corretto</li>
+		<li>Comunicazione: far stampare al Consumatore i valori Ricevuti da  N Produttori nei seguenti casi<ul>
+			<li>OneNode: Consumatore e Produttori sono su uno stesso nodo virtuale</li>
+			<li>TwoNodes: il Consumatore è da solo su nodo virtuale mentre gli N Produttori sono tutti su un'altro nodo virtuale distinto</li>
+			<li>ManyNodes: il Consumatore è da solo su un nodo virtuale mentre N Produttori sono divisi tra K nodi virtuali </li>
+		</ul>in modo da testare tutte le possibili modalità di comunicazione</li>
+	</ul>
+</div>
 
 
 <h2>Project</h2> 
