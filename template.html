@@ -295,8 +295,30 @@ div.imagedesc{
 </div>
 
 
-<h2>Project</h2> 
- 
+<h2>Project</h2>
+Come primo sprint si vuole implementare una versione di base del sistema.<br>
+Si sceglie in prima istanza di adottare un' architettura client-server in cui Produttore e Consumatore sono due eseguibili java.<br>
+Per la comunicazione tra i due componenti si sceglie di utilizzare l'astrazione di Interaction fornita dalla libreria unibo.basicomm23-1.0.<br>
+Nello specifico si vuole adottare un'Interaction che abbia le seguenti proprietà:
+<ul>
+	<li>sia basata su protocollo tcp in modo da garantire un ragionevole livello di sicurezza per quanto riguarda la ricezione dei messaggi</li>
+	<li>sia  presente una semantica sincrona-bloccante tra Produttore e Consumatore, nello specifico il protocollo di comunicazione tra Produttore e Consumatore prevederà la sequenza di messaggi:
+		<ol>
+			<li>Produttore -> Consumatore : msg(sendInfo,request,prod,cons,info,seq)</li>
+			<li>Consumatore: elaborazione messaggio</li>
+			<li>Consumatore -> Produttore : msg(ack,reply,cons,prod,ack,seq)</li>
+		</ol>
+	</li>
+</ul>
+Per il consumatore si sceglie di fare uso di un componente IServer che lo abiliterà alla ricezione dei messaggi.<br>
+La logica per l'elaborazione delle richeste e l'invio delle risposte viene inserita all'interno di un componente ConsApplMsgHandler che implementa l'interfaccia IApplMsgHandler.<br>
+Non avendo informazioni precise sul tipo di elaborazione da eseguire nel prototipo il Consumatore si limiterà a stampare a video la richiesta ricevuta prima di inviare l'ack.<br>
+n.b.: la scelta di adottare un comunicazione sincrona è dettata dalla volontà di garantire
+al Produttore un feedback sia sulla ricezione che sulla corretta elaborazione dei messaggi.<br>
+In questo primo sprint si è scelto inoltre di adottare una semantca bloccante in modo da poter produrre
+un primo prototipo in tempi ragionevoli, tuttavia se i primi test sul sistema saranno soddisfacenti si puo' valutare
+di introdurre nei prossimi sprint un proxy tra Produttore e Consumatore in modo da rendere la comunicazione sincrona-non bloccante.
+
 </div>
 
 <h2>Testing</h2> 
