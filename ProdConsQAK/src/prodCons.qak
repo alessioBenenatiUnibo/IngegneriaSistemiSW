@@ -1,0 +1,108 @@
+System prodcons
+
+Dispatch infoDis:infoDis(N) "informazione di tipo dispatch inviata dal prod al cons"
+Request  infoReq:infoReq(N) "informazione di tipo richiesta inviata dal prod al cons"
+Reply    infoRepl:infoRepl(N)	   "risposta del cons alla richiesta del prod"
+Reply    infoRepl2:infoRepl(N)	   "risposta del cons alla richiesta del prod"
+
+Context ctxprodcons ip [host="localhost" port=8000] 
+
+QActor cons context ctxprodcons{
+	State s0 initial{
+		println("$name: starting") color green
+	
+	}
+	Goto listen
+	
+	State listen{
+		println("$name: listening") color green
+	}
+	Transition toHandleInfo whenMsg infoDis -> handleInfoDis whenRequest infoReq -> handleInfoReq
+	
+	State handleInfoDis{
+		onMsg(infoDis:infoDis(N)){
+			[# val N=payloadArg(0) #]
+			printCurrentMessage color green
+			println("$name: received $N") color green
+		}
+	}
+	Goto listen
+	
+	State handleInfoReq{
+		onMsg(infoReq:infoReq(N)){
+			[#  val SENDER=currentMsg.msgSender()
+				val N=payloadArg(0) 
+				#]
+			printCurrentMessage color green
+			println("$name: received $N") color green
+			println("$name: sendig reply") color green
+			replyTo infoReq ofsender $SENDER with infoRepl:infoRepl($N)
+		}
+	}
+	Goto listen
+}
+
+QActor prod0 context ctxprodcons{
+	State s0 initial{
+		println("$name: starting") color magenta
+			}
+	Goto sendInfo
+	
+	State sendInfo{
+		println("$name: sending info") color magenta
+		forward cons -m infoDis : infoDis(10)
+		request cons -m infoReq : infoReq(11)
+	}
+	Transition replReceived whenReply infoRepl -> replReceived
+	
+	State replReceived{
+		onMsg(infoRepl:infoRepl(N))
+		{
+			[# val N=payloadArg(0) #]
+			printCurrentMessage color magenta
+			println("$name: received reply $N") color magenta		
+		}
+
+	}
+	Goto wait
+	
+	State wait{
+		println("$name: waiting 5sec") color magenta
+		delay 5000
+	}
+	Goto sendInfo
+}
+
+QActor prod1 context ctxprodcons{
+	State s0 initial{
+		println("$name: starting") color blue
+			}
+	Goto sendInfo
+	
+	State sendInfo{
+		println("$name: sending info") color blue
+		forward cons -m infoDis : infoDis(12)
+		request cons -m infoReq : infoReq(13)
+	}
+	Transition replReceived whenReply infoRepl -> replReceived
+	
+	State replReceived{
+		onMsg(infoRepl:infoRepl(N))
+		{
+			[# val N=payloadArg(0) #]
+			printCurrentMessage color blue
+			println("$name: received reply $N") color blue		
+		}
+
+	}
+	
+	Goto wait
+	
+	State wait{
+		println("$name: waiting 5sec") color blue
+		delay 5000
+	}
+	Goto sendInfo
+}
+
+
