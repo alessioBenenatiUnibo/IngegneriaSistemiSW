@@ -274,6 +274,15 @@ che simula il gioco del ping-pong, con il ping come battitore.
 
 <h2>Test plans</h2> 
 <div>
+<ul>
+
+	<li><b>test Vittoria</b>: Pong dice a ping di aver perso<br>
+		<b>risultato atteso</b> Ping segnala di aver vinto e Pong segnala di aver perso all'utente </li>
+	<li><b>test Sequenza Errata</b>: Ping invia la pallina a Pong due volte senza aspettare la risposta di Pong<br>
+		<b>risultato atteso</b>: Pong segnala errore all'utente</li>
+	<li><b>test Falsa Vittoria</b>: Ping dice a Pong di aver vinto anche se Pong ha colpito la pallina<br>
+		<b>risultato atteso</b> Pong segnala errore all'utente
+</ul>
 </div>
 
 
@@ -282,8 +291,9 @@ che simula il gioco del ping-pong, con il ping come battitore.
 	<h5>Sprint 0</h5>
 	<ul>
 		<li>viene realizzato un prototipo su un singolo nodo</li>
+		<li>l'eventualità in cui Ping o Pong mancano la pallina viene simulata attraverso la generazione di numeri casuali</li>
 		<li>Ping Pong vengono realizzati come attori con un pojo <b>Counter</b> che mantiene il numero di sequenza dello spazio ed un booleano asserito se l'attore ha colpito la pallina l'ultima volta</li>
-		<li>lo scambio di messaggi tra <b>Ping</b> e <b>Pong</b> segue il protocollo in figura:
+		<li>lo scambio di messaggi tra <b>Ping</b> e <b>Pong</b> segue il protocollo in figura:<br>
 		<img src="protocollo.jpg"/></li>
 
 	</ul>

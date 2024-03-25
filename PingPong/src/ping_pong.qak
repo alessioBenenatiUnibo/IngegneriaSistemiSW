@@ -1,0 +1,148 @@
+System ping_pong
+ 
+Dispatch pallina : pallina(SEQ) "messaggio scambiato da Ping e Pong quando colpiscono la pallina"
+Dispatch errore: errore(1)		"messaggio indicante un qualche errore"
+Dispatch vittoria: vittoria(1)	"messaggio inviato da un'attore per confermare la sua vittoria"
+Dispatch sconfitta: sconfitta(1)"messaggio inviato da un'attore per segnalare la sua sconfitta"
+Dispatch okPing: okPing(1)		"messaggio autoinviato da Ping se il controllo di un messaggio da parte di pong è andato a buon fine"
+Dispatch okPong: okPong(1)		"messaggio autoinviato da Pong se il controllo di un messaggio da parte di ping è andato a buon fine"
+
+Dispatch short : short(V)
+
+Context ctxpingpong  ip [host="localhost" port=8015] 
+
+
+QActor ping context ctxpingpong  withobj counter using "it.unibo.res.Counter(-1)" {
+	import "kotlin.random.Random"
+	State s0 initial{ 
+		println("$name STARTS") color blue
+	} 
+	Goto battuta
+	
+	State battuta{
+		delay 1000
+		[#
+			counter.update()
+			val precision:Double=if(counter.seq==0) 1.0 else Random.nextDouble()
+			counter.lastHit=(precision>0.2)
+			
+			val SEQ=counter.seq
+			val HIT= counter.lastHit
+			
+		#]
+		println("$name: SEQ=$SEQ HIT=$HIT") color blue
+		if[#HIT#]
+		{
+			forward pong -m pallina:pallina($SEQ)
+		}else{
+			forward pong -m sconfitta:sconfitta(1)
+		}
+		
+		
+		
+	}
+	Transition transizioniBattuta 
+		whenMsg pallina -> controlloMessaggio
+		whenMsg sconfitta ->vittoria
+		whenMsg vittoria and [#!counter.lastHit#] -> sconfitta
+		whenMsg vittoria and [#counter.lastHit#] -> errore
+	
+	State controlloMessaggio{
+		onMsg(pallina:pallina(SEQ)){
+				println("$name: ricevuto $currentMsg") color blue
+				if [#payloadArg(0)!=counter.seq.toString()#]{
+					autodispatch errore: errore(1)
+				}else{
+					autodispatch okPing:okPing(1)
+				}				
+			}		
+		}
+	Transition transizioniRicezione
+		whenMsg pallina->errore
+		whenMsg vittoria->errore
+		whenMsg sconfitta->errore
+		whenMsg errore->errore
+		whenMsg okPing -> battuta
+	
+	State vittoria{
+		delay 1000
+		println("$name: vittoria") color blue
+		forward pong -m vittoria:vittoria(1)
+	}
+	
+	State sconfitta{
+		println("$name: sconfitta") color blue	
+	}
+	
+	State errore{
+		println("$name: errore di sequenza") color blue
+		
+	}
+}
+
+QActor pong context ctxpingpong withobj counter using  "it.unibo.res.Counter(-1)"  {
+	import "kotlin.random.Random"
+	State s0 initial{ 
+		println("$name STARTS") color yellow
+	} 
+	Transition t0 whenMsg pallina -> controlloMessaggio
+	
+	State battuta{
+		delay 1000
+		[#
+			val precision:Double=if(counter.seq==0) 1.0 else Random.nextDouble()
+			counter.lastHit=(precision>0.2)
+			
+			val SEQ=counter.seq
+			val HIT= counter.lastHit
+		#]
+		println("$name: SEQ=$SEQ HIT=$HIT") color yellow
+		if[#HIT#]
+		{
+			forward ping -m pallina:pallina($SEQ)
+		}else{
+			forward ping -m sconfitta:sconfitta(1)
+		}
+		
+		
+	}
+	Transition t0 
+		whenMsg pallina -> controlloMessaggio
+		whenMsg sconfitta ->vittoria
+		whenMsg vittoria and [#!counter.lastHit#] -> sconfitta
+		whenMsg vittoria and [#counter.lastHit#] -> errore
+	
+	State controlloMessaggio{
+		onMsg(pallina:pallina(SEQ)){
+				[#counter.update()#]
+				println("$name: ricevuto $currentMsg") color yellow
+				if [#payloadArg(0)!=counter.seq.toString()#]{
+					autodispatch errore: errore(1)
+				}else{
+					autodispatch okPong:okPong(1)
+				}				
+			}		
+		}
+
+	Transition t0 
+		whenMsg pallina->errore
+		whenMsg vittoria->errore
+		whenMsg sconfitta->errore
+		whenMsg errore->errore
+		whenMsg okPong -> battuta
+	
+	State vittoria{
+		delay 1000
+		println("$name: vittoria") color yellow
+		forward ping -m vittoria:vittoria(1)
+	}
+	
+	State sconfitta{
+		println("$name: sconfitta") color yellow	
+	}
+	
+	State errore{
+		println("$name: errore di sequenza") color yellow
+		
+	}
+}
