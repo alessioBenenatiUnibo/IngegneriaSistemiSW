@@ -1,0 +1,123 @@
+System flip_flop
+
+Dispatch nor_1_in_1 : nor_1_in_1(V)
+Dispatch nor_1_out : nor_1_out(V)
+
+Dispatch nor_2_in_2 : nor_2_in_2(V)
+Dispatch nor_2_out : nor_2_out(V)
+
+Context ctx_flip_flop ip [host="localhost" port=8015]
+
+QActor nor_1 context ctx_flip_flop{
+	[#
+		var in1=false;
+		var in2=false;
+		var out=!(in1 || in2)
+	#]
+	State s0 initial{
+		observeResource nor_2 msgid nor_2_out
+	}Goto out
+	
+	State in{
+		
+	}Transition t0
+		whenTime 1000 ->  out
+	 	whenMsg nor_1_in_1 -> handle_in_1
+		whenMsg nor_2_out -> handle_in_2
+	
+	State out {
+		[#
+			out=!(in1 || in2)
+			val OUT=if(out) 1 else 0	
+		#]
+		println("$name out $out") color green
+		//updateResource [# "nor_1_out($OUT)" #]
+		 forward nor_2 -m nor_1_out:nor_1_out($OUT)
+
+	}Goto in	
+	
+	State handle_in_1{
+		//printCurrentMessage
+		onMsg(nor_1_in_1:nor_1_in_1(V))
+		{[#
+			in1=(payloadArg(0)=="1")
+		#]}
+	}Goto in
+	
+	State handle_in_2{
+		//printCurrentMessage
+		onMsg(nor_2_out:nor_2_out(V))
+		{[#
+			in2=(payloadArg(0)=="1")
+		#]}
+		
+		}Goto in
+}
+
+QActor nor_2 context ctx_flip_flop{
+	[#
+		var in1=false;
+		var in2=false;
+		var out=!(in1 || in2)
+	#]
+	State s0 initial{
+		observeResource nor_1 msgid nor_1_out
+	}Transition t0 whenMsg nor_1_out->handle_in_1
+	
+	
+	State in{
+		
+	}Transition t0
+		whenTime 1000 ->  out
+		whenMsg nor_1_out -> handle_in_1
+		whenMsg nor_2_in_2 -> handle_in_2  
+		
+	State out{
+		
+		[#
+			out=!(in1 || in2)
+			val OUT=if(out) 1 else 0	
+		#]
+		//println("$name out $out") color red
+		//updateResource [# "nor_2_out($OUT)"#]
+		forward nor_1 -m nor_2_out:nor_2_out($OUT)
+	}Goto in	
+	
+	State handle_in_1{
+		//printCurrentMessage
+		onMsg(nor_1_out : nor_1_out(V)){
+		[#
+			var X=payloadArg(0)
+			in1=(payloadArg(0)=="1")
+		#] }
+		
+	}Goto in  
+	
+	State handle_in_2{
+		//printCurrentMessage
+		onMsg(nor_2_in_2 : nor_2_in_2(V))
+		{[#
+			var X=payloadArg(0)
+			in2=(payloadArg(0)=="1")
+		#]} 
+	}Goto in
+}
+ 
+QActor user context ctx_flip_flop{
+	State s0 initial{
+		delay 3000
+		println("input 0 1 ") color yellow 
+		forward  nor_2 -m nor_2_in_2:nor_2_in_2(1)
+		delay 3000
+		println("input 0 0 ") color yellow 
+		forward  nor_2 -m nor_2_in_2:nor_2_in_2(0)
+		delay 5000
+		println("input 1 0 ") color yellow 
+		forward  nor_1 -m nor_1_in_1:nor_1_in_1(1)
+		delay 3000
+		println("input 0 0 ") color yellow 
+		forward  nor_1 -m nor_1_in_1:nor_1_in_1(0)
+	}
+}
+
+

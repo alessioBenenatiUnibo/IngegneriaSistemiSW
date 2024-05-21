@@ -1,0 +1,5 @@
+{"actor":"nor_1", "msgType":"dispatch", "curstate":"in", "nextstate":"handle_in_1", "msgId":"nor_1_in_1"}
+{"actor":"nor_1", "msgType":"dispatch", "curstate":"in", "nextstate":"handle_in_2", "msgId":"nor_2_out"}
+{"actor":"nor_2", "msgType":"dispatch", "curstate":"s0", "nextstate":"handle_in_1", "msgId":"nor_1_out"}
+{"actor":"nor_2", "msgType":"dispatch", "curstate":"in", "nextstate":"handle_in_1", "msgId":"nor_1_out"}
+{"actor":"nor_2", "msgType":"dispatch", "curstate":"in", "nextstate":"handle_in_2", "msgId":"nor_2_in_2"}

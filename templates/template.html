@@ -1,0 +1,408 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"crossorigin="anonymous"></script> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="./commons/resources/styles/templateISS.css">
+        <link rel="stylesheet" type="text/css" href="./commons/resources/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="./commons/resources/styles/navbar.css">
+        <link rel="stylesheet" type="text/css" href="./commons/resources/styles/table.css">
+        <link rel="stylesheet" type="text/css" href="./commons/resources/styles/code.css">
+        <!-- <script type="text/javascript" src="./commons/resources/scripts/myScripts.js"></script> -->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+ 
+   
+</head>
+	
+		
+  
+
+
+   
+<title>TemplateToFill</title></head>
+    
+<!--
+	<body onload="loadNav();">
+		<div id="openButton" class="openButton" onclick="openNav(true)">&#9776; Menu</div>
+		<div id="sidenav" class="sidenav">
+			<a class="closeButton" href="javascript:void(0)" onclick="closeNav(true)">&times;</a>
+			<a href=".README.html">ReadMe</a>
+			<a class="sprint" href="../../../Sprint0/Codice/userDocs/Cold%20Storage%20Service%20-%20Natali%20V3.html">Sprint0</a>
+			<a class="sprint" href="../../../Sprint1.0/Codice/userDocs/Sprint%201.0%20-%20V3.html">Sprint1.0</a>
+			<a class="sprint" href="../../../Sprint1.1/Codice/userDocs/Sprint%201.1%20-%20V3.html">Sprint1.1</a>
+			<a id="currentSprint" class="sprint" href="#">&#8211;&#8212; Sprint2 &#8212;&#8211;</a>
+			<div class="sidenavSection">
+				<a href="#Goal Sprint 2">Goal Sprint 2</a>
+				<a href="#Requisiti">Requisiti</a>
+				<a href="#Analisi dei Requisiti">Analisi dei Requisiti</a>
+				<a href="#Analisi del Problema">Analisi del Problema</a>
+				<a href="#Test Plan">Test Plan</a>
+				<a href="#Progettazione">Progettazione</a>
+				<a href="#Deployment">Deployment</a>
+			</div>
+			<p class="separator">&mdash;&mdash;&mdash;&ndash;&ndash;&mdash;&mdash;&mdash;</p>
+			<a class="sprint" href="../../../Sprint3/Codice/userDoc/Sprint%203.html">Sprint3</a>
+			<bottom-spacer/>
+		</div>
+-->
+<body>
+<div id="top">
+<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE <font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+Si vuole esplorare come sia possibile costruire modelli eseguibili di un sistema software partendo dalla analisi del problema, senza entrare subiot nai dettagli tecnologici necessari per la costruzione effettiva del software.
+Il caso di studio è una applicazione IOT denominata WD (WolfDetection).
+ 
+<h2>Requirements</h2>
+<p>Una stazione sperimentale per lo studio di lupi allo stato libero, ha disolocato in una zona di interesse
+    un RaspberryPi dotato di una fotocamera, di un sonar HC-SR04 e di un Led (di colore blu).</p>
+    <p>Nella stazione è disponibile un altro RaspberryPi, dotato di un Led di colore rosso.</p>
+    <p>Si chiede di costruire un sistema software che:</p>
+    <ul class="simple">
+    <li><p>permetta l’accensione e lo spegnimento remoto del sonar mediante comandi impartiti dalla stazione</p></li>
+    <li><p>accenda il Led blu quando il sonar rileva un ostacolo a distanza inferiore a un limite prefissato DMIN</p></li>
+    <li><p>scatti una fotografia dell’ostacolo rilevato a distanza inferiore a DMIN e la invii ad un elaboratore di
+    immagini in grado di capire se l’ostacolo è un lupo</p></li>
+    <li><p>accenda il Led rosso presso la stazione, se è stato rilevato un lupo</p></li>
+    <li><p>spenga il Led blu e il Led rosso quando il sonar non rileva più ostacoli a distanza inferiore a DMIN</p></li>
+    </ul>
+
+<h2>Requirement analysis</h2>
+Dai requisiti si deduce l'esistenza di 3 entità modellate come attori con Pojo:
+<ul>
+    <li>RemoteRaspberry</li>
+    <li>StationRaspberry</li>
+    <li>ImageAnalyzer</li>
+</ul>
+RemoteRaspberry e StationRaspberry vivono in due contesti differenti.
+Sempre dai requisiti deduciamo anche l'esistenza di alcuni tipi di messaggio:
+<ul>
+    <li>SonarOn e SonarOff: per accendere e spegnere Sonar: scambiati tra StationRaspberry e RemoteRaspberry</li>
+    <li>AnalyzeImage: richiesta di analisi fotografia: scambiata tra RemoteRaspberry e ImageAnalyzer</li>
+    <li>WolfDetected e NothingDetetcted: messaggi di rilevamento e fine rilevamento lupo</li>
+</ul>
+n.b. da requisiti non abbiamo abbastanza informazioni per determinare la natura di tali messaggi
+ 
+
+</div>
+
+<h2>Problem analysis</h2>
+<h4>Contesto ImageAnalyzer</h4>
+<p>mentre sappiamo che RemoteRaspberry e StationRaspberry vivono in due contesti differenti, nei requisiti non viene specificato nulla riguardo ad ImageAnalyzer, le possibilità sono sostanzialmente tre:
+    <table>
+        <tr>
+            <td>Contesto</td>
+            <td>
+                PRO
+            </td>
+            <td>
+               CONTRO
+            </td>
+        </tr>
+        <tr>
+            <td>ImageAnalyzer vive nello stesso contesto di RemoteRaspberry</td>
+            <td>
+                <ul>
+                    <li>minore latenza di comunicazione con sonar e camera</li>
+                    <li>possibilità di analizzare e salvare immagini di lupi anche senza connessione</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>risorse di calcolo limitate</li>
+                    <li>poco controllo sul modello e difficoltà di modifiche/aggiornamenti</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>ImageAnalyzer vive nello stesso contesto di StationRaspberry</td>
+            <td>
+                <ul>
+                    <li>controllo su come vengono fatte l analisi, facilità di modifiche aggiornamento</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>risorse di calcolo limitate</li>
+                    <li>necessità di connessione per analisi immagini</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>ImageAnalyzer vive in un contesto a sè stante</td>
+            <td>
+                <ul>
+                    <li>possibilità di utilizzare HW ad hoc</li>
+                    <li>semplicità di modifiche/aggiornamenti</li>
+                    <li>maggiore indipendenza tra le parti del sistema</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>necessità di connessione per analisi immagini</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    conviene discutere con il cliente per capire le sue necessità
+</p>
+
+<h4>Tipo Messaggi SonarOn e SonarOff</h4>
+<p><ul>
+    <li>event: non risulta idoneo poichè questi messaggi vengono scambiati tra due endpoint precisi</li>
+    <li>dispatch: potrebbe essere utilizzato tuttavi trattandosi di messaggi che di fatto attivano/disattivano il sistema sembra più appropriato che RemoteRaspberry fornisca un ack sulla riuscita delle operazioni</li>
+    <li>request: sembra il tipo più appropriato</li>
+</ul></p>
+
+<h4>Comunicazione AnalyzeImage WolfDetected e NothingDetetcted</h4>
+<p>
+    dai requisiti viene detto poco su come debba essere realizzata la comunicazione tra ImageAnalyzer RemoteRaspberry e StationRaspberry in caso di rilevamento lupo.
+    di seguito riportiamo alcune possibilità
+    <ol>
+        <li>
+            RemoteRaspberry -> ImageAnalyzer : richiesta analisi immagine tipo Request<br>
+            ImageAnalyzer -> RemoteRaspberry : risultato analisi immagine tipo Answer<br>
+            se lupo rilevato: RemoteRaspberry -> StationRaspberry: WolfDetected tipo Dispatch<br>
+            se lupo non più rilevato: RemoteRaspberry -> StationRaspberry: NothingDetetcted tipo Dispatch
+        </li>
+        <li>
+            RemoteRaspberry -> ImageAnalyzer : richiesta analisi immagine tipo Dispatch<br>
+            ImageAnalyzer -> RemoteRaspberry : risultato analisi immagine tipo Dispatch<br>
+            ImageAnalyzer -> StationRaspberry : risultato analisi immagine tipo Dispatch
+        </li>
+        <li>
+            RemoteRaspberry -> ImageAnalyzer: immagine da analizzare tipo Dispatch<br>
+            ImageAnalyzer: risultato analisi immagine tipo Event<br>
+        </li>
+    </ol>
+    da quest'analisi il tipo 3. sembrerebbe il più adatto, dato che il rilevamento di un lupo è di fatto un'evento a cui sia RemoteRaspberry che StationRaspberry sono interessati, ed è quindi un tipo di comunicazione 1 a molti
+</p>
+
+ 
+
+<h2>Test plans</h2> 
+
+
+<h2>Project</h2> 
+ 
+</div>
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+<b>By</b>: Alessio Benenati<br>
+<b>Email</b>: alessio.benenati2@studio.unibo.it<br>
+<b>GIT</b>: https://github.com/alessioBenenatiUnibo/IngegneriaSistemiSW.git<br>
+<img src="me.jpeg" alt="mbot" width="20%" height="auto">
+</div> 
+</body>
+</html>

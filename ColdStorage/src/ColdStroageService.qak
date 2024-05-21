@@ -1,0 +1,98 @@
+System cold_storage_service
+
+Request store_request:store(N) 										// N = numero kg
+Reply store_accepted:store_accepted(T) 								// T = ticket
+Reply store_rejected:store_rejected(M) 								// M = messaggio
+
+Request charge_request:store(N) 									// N = numero kg
+Reply charge_accepted:charge_accepted(T) 							// T = ticket
+Reply charge_rejected:charge_rejected(M) 							// M = messaggio
+
+Request new_ticket_request:new_ticket_request(N)					// N = numero kg
+Reply new_ticket:new_ticket(T) 										// T = ticket
+
+Request validate_ticket_request:validate_ticket_request(T)			// T = ticket
+Reply 	ticket_valid:ticket_valid(N)								// N = numero kg for Ticket
+Reply	ticket_not_valid:ticket_not_valid(M)						// M = messaggio
+
+Request avilable_space_request:available_cpace_request(N)
+Reply 	available_space:available_space(N)
+
+
+
+Context ctx_cold_storage_service ip [host="localhost" port=8020]
+
+ 
+
+QActor cold_storage_service context ctx_cold_storage_service{  
+	
+	 
+	State s0 initial{
+		
+	}  
+	Transition t0
+	whenRequest store_request->handle_store_request
+	
+	
+	State handle_store_request{
+		request 
+		
+		
+		replyTo store_request with store_accepted:storage_request(10)
+		
+	}
+
+ }
+ 
+ QActor ticket_manager context ctx_cold_storage_service{  
+	
+	 
+	State s0 initial{
+		
+	}  
+	Transition t0
+	whenRequest new_ticket_request-> handle_new_ticket_request
+	whenRequest validate_ticket_request -> handle_validate_ticket_request
+	
+	
+	State handle_new_ticket_request{
+		//TODO: ticket creation and memorization inside a Pojo
+		replyTo new_ticket_request with new_ticket:new_ticket(1)
+		
+	}Goto s0
+	
+	State handle_validate_ticket_request{
+		//TODO: ticket validation system
+		replyTo validate_ticket_request with ticket_valid:ticket_valid
+	}Goto s0
+
+ }
+ 
+ QActor indoor context ctx_cold_storage_service{
+ 	State s0 initial{
+ 		
+ 	}Transition t0
+ 	whenRequest charge_request->handle_charge_request
+ 	
+ 	State handle_charge_request{
+ 		request ticket_manager -m validate_ticket_request:validate_ticket_request
+ 	}Transition t0
+ 	whenReply ticket_valid -> handle_ticket_valid
+ 	
+ 	State handle_ticket_valid{
+ 		replyTo charge_request with charge_accepted:charge_accepted
+ 	}Goto s0
+ 	
+ 	State handle_ticket_not_valid{
+ 		replyTo charge_request with charge_rejected:charge_rejected
+ 	}Goto s0
+
+ }
+
+
+ QActor driver_mock context ctx_cold_storage_service{
+ 	State s0 initial{
+ 		delay 500
+ 		request  cold_storage_service -m store_request:store_request(10)
+ 	}
+ }

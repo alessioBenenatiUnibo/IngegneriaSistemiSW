@@ -1,0 +1,48 @@
+System ping
+ 
+Dispatch ball : ball(N) "info exchanged by the players"
+
+//FOR TESTING
+Dispatch ballview : ball(N)  "observed info | payload not mandatory"
+Request info      : info(X)  "sent by the testUnit to the observer"
+Reply   obsinfo   : obsinfo(X) for info
+ 
+Dispatch endgame : endgame(X) "sent as an automsg by the observer"
+ 
+Context ctxping  ip [host="localhost"port=8014] 
+Context ctxpong  ip [host="pong" port=8015]
+
+ExternalQActor pong context ctxpong
+
+QActor ping context ctxping{     
+	[# var N = 1 ; val TMAX = 1500L #] 
+ 	State s0 initial{ 
+ 		println("$name starts") color blue
+		delay 5000 //pong started ... 
+		//Starts the game
+		println("$name sends $N  ") color blue
+		forward pong -m ball : ball($N)
+	} 
+	Goto receive
+	  
+	State receive{
+		//println("$name received  ") color blue
+	}
+	Transition t0 
+		whenTimeVar TMAX -> endofexchange
+		whenMsg ball     -> reply
+	
+	State reply{
+		[# N = N + 1 #]
+		delay 500
+		println("$name sends $N  ") color blue
+		updateResource [# "ball($N)" #]
+		forward pong -m ball : ball($N)
+	} 
+	Goto receive	
+	 
+	State endofexchange{
+		println("$name ENDS ") color green
+		//updateResource [# "ball(0)" #] //means end
+	}
+ }
