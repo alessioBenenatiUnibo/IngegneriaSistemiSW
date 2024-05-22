@@ -21,7 +21,7 @@ QActor nor_1 context ctx_flip_flop{
 	State in{
 		
 	}Transition t0
-		whenTime 1000 ->  out
+		whenTime 500 ->  out
 	 	whenMsg nor_1_in_1 -> handle_in_1
 		whenMsg nor_2_out -> handle_in_2
 	
@@ -68,7 +68,7 @@ QActor nor_2 context ctx_flip_flop{
 	State in{
 		
 	}Transition t0
-		whenTime 1000 ->  out
+		whenTime 500 ->  out
 		whenMsg nor_1_out -> handle_in_1
 		whenMsg nor_2_in_2 -> handle_in_2  
 		
@@ -106,17 +106,19 @@ QActor nor_2 context ctx_flip_flop{
 QActor user context ctx_flip_flop{
 	State s0 initial{
 		delay 3000
-		println("input 0 1 ") color yellow 
-		forward  nor_2 -m nor_2_in_2:nor_2_in_2(1)
-		delay 3000
-		println("input 0 0 ") color yellow 
-		forward  nor_2 -m nor_2_in_2:nor_2_in_2(0)
-		delay 5000
 		println("input 1 0 ") color yellow 
 		forward  nor_1 -m nor_1_in_1:nor_1_in_1(1)
 		delay 3000
 		println("input 0 0 ") color yellow 
 		forward  nor_1 -m nor_1_in_1:nor_1_in_1(0)
+		delay 5000
+		println("input 0 1 ") color yellow 
+		forward  nor_2 -m nor_2_in_2:nor_2_in_2(1)
+		delay 3000
+		println("input 0 0 ") color yellow 
+		forward  nor_2 -m nor_2_in_2:nor_2_in_2(0)
+		
+		
 	}
 }
 

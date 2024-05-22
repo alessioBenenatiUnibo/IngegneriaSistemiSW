@@ -25,17 +25,17 @@ class User ( name: String, scope: CoroutineScope, isconfined: Boolean=false  ) :
 				state("s0") { //this:State
 					action { //it:State
 						delay(3000) 
-						CommUtils.outyellow("input 0 1 ")
-						forward("nor_2_in_2", "nor_2_in_2(1)" ,"nor_2" ) 
-						delay(3000) 
-						CommUtils.outyellow("input 0 0 ")
-						forward("nor_2_in_2", "nor_2_in_2(0)" ,"nor_2" ) 
-						delay(5000) 
 						CommUtils.outyellow("input 1 0 ")
 						forward("nor_1_in_1", "nor_1_in_1(1)" ,"nor_1" ) 
 						delay(3000) 
 						CommUtils.outyellow("input 0 0 ")
 						forward("nor_1_in_1", "nor_1_in_1(0)" ,"nor_1" ) 
+						delay(5000) 
+						CommUtils.outyellow("input 0 1 ")
+						forward("nor_2_in_2", "nor_2_in_2(1)" ,"nor_2" ) 
+						delay(3000) 
+						CommUtils.outyellow("input 0 0 ")
+						forward("nor_2_in_2", "nor_2_in_2(0)" ,"nor_2" ) 
 						//genTimer( actor, state )
 					}
 					//After Lenzi Aug2002

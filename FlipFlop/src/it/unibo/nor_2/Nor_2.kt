@@ -43,7 +43,7 @@ class Nor_2 ( name: String, scope: CoroutineScope, isconfined: Boolean=false  ) 
 					//After Lenzi Aug2002
 					sysaction { //it:State
 				 	 		stateTimer = TimerActor("timer_in", 
-				 	 					  scope, context!!, "local_tout_"+name+"_in", 1000.toLong() )  //OCT2023
+				 	 					  scope, context!!, "local_tout_"+name+"_in", 500.toLong() )  //OCT2023
 					}	 	 
 					 transition(edgeName="t04",targetState="out",cond=whenTimeout("local_tout_"+name+"_in"))   
 					transition(edgeName="t05",targetState="handle_in_1",cond=whenDispatch("nor_1_out"))
